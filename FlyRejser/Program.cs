@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using FlyRejser.Data;
 namespace FlyRejser
 {
     public class Program
@@ -5,6 +8,8 @@ namespace FlyRejser
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<FlyRejserContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("FlyRejserContext") ?? throw new InvalidOperationException("Connection string 'FlyRejserContext' not found.")));
 
             // Add services to the container.
 
@@ -16,15 +21,12 @@ namespace FlyRejser
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            
+            app.UseSwagger();
+            app.UseSwaggerUI(ui => ui.SwaggerEndpoint("/swagger/v1/swagger.json", "FligtTravels WEB API V1"));
+            
 
             app.UseAuthorization();
-
-
             app.MapControllers();
 
             app.Run();
