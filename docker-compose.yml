@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  mongodb-fids:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongodb:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    volumes:
+      - ~/.docker-volumes/mongo/data:/data/db
