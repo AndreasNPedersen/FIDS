@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIDS", "FIDS\FIDS.csproj", "{0D0EE5AD-11C3-49CD-8D5A-A802307990ED}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyRejser", "FlyRejser\FlyRejser.csproj", "{E03E11EA-68B1-47D8-9E1F-55FA6E1A0124}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fly", "Fly\Fly.csproj", "{CEE16622-4BE5-45D5-AE18-274441636928}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIDS.Backend", "FIDS.Backend\FIDS.Backend.csproj", "{AB8DD3B6-9103-4C9C-AAE3-B7789F60DD7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0D0EE5AD-11C3-49CD-8D5A-A802307990ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D0EE5AD-11C3-49CD-8D5A-A802307990ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D0EE5AD-11C3-49CD-8D5A-A802307990ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D0EE5AD-11C3-49CD-8D5A-A802307990ED}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E03E11EA-68B1-47D8-9E1F-55FA6E1A0124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E03E11EA-68B1-47D8-9E1F-55FA6E1A0124}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E03E11EA-68B1-47D8-9E1F-55FA6E1A0124}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{CEE16622-4BE5-45D5-AE18-274441636928}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEE16622-4BE5-45D5-AE18-274441636928}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEE16622-4BE5-45D5-AE18-274441636928}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB8DD3B6-9103-4C9C-AAE3-B7789F60DD7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB8DD3B6-9103-4C9C-AAE3-B7789F60DD7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB8DD3B6-9103-4C9C-AAE3-B7789F60DD7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB8DD3B6-9103-4C9C-AAE3-B7789F60DD7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
