@@ -1,3 +1,4 @@
+using FIDS.Backend.Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FIDS.Backend.Controllers;
@@ -18,11 +19,15 @@ public class DeparturesController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet(Name = "GetAllDepartures")]
-    [ProducesResponseType(typeof(IEnumerable<Departures>), 200)]
-    public IActionResult GetAllDepartures()
+    [ProducesResponseType(typeof(IEnumerable<Flight>), 200)]
+    public IEnumerable<Flight> GetFlights()
     {
         _logger.LogInformation("GetAllDepartures");
-        return Ok();
+        return new List<Flight>
+        {
+            new Flight { Id = 2, Destination = "Copenhagen", Status = "On Time" },
+            // Tilføj flere flights som nødvendigt
+        };
     }
 }
 

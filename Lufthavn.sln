@@ -11,6 +11,13 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "FlyrejserDB", "FlyrejserDB\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIDS.Backend", "FIDS.Backend\FIDS.Backend.csproj", "{79C4D5A0-2390-4DA6-ABF5-E4234E31BC3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIDS.DepartureClient", "FIDS.DepartureClient\FIDS.DepartureClient.csproj", "{03E12877-45BE-4F26-9F4C-D33C941217C0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AB51D829-7D17-441F-9A8D-A6B0423469BF}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +42,10 @@ Global
 		{79C4D5A0-2390-4DA6-ABF5-E4234E31BC3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79C4D5A0-2390-4DA6-ABF5-E4234E31BC3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79C4D5A0-2390-4DA6-ABF5-E4234E31BC3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03E12877-45BE-4F26-9F4C-D33C941217C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03E12877-45BE-4F26-9F4C-D33C941217C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03E12877-45BE-4F26-9F4C-D33C941217C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03E12877-45BE-4F26-9F4C-D33C941217C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
