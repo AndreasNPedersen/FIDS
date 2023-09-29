@@ -1,0 +1,19 @@
+services:
+  fly:
+    container_name: fly
+    image: mcr.microsoft.com/dotnet/sdk:6.0
+    command: dotnet run
+    ports: 
+      - "8080:5002"
+    volumes:
+      - ./Fly:/app
+    working_dir: /app
+  flydb:
+    container_name: flydb
+    image: mcr.microsoft.com/mssql/server:2022-preview-ubuntu-22.04
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: 'Yourstrongpassw0rd'
+      MSSQL_PID: Evaluation
