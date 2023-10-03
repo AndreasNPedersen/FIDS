@@ -42,9 +42,10 @@ public sealed class Worker : BackgroundService
             //Save to database TODO:
             //Get deparurer from database
             //Update Clients
+            _logger.LogInformation("Notify clients about departure updates");
             await _departureStatusHubContext.Clients.All.SendAsync("ReceiveDepartureStatus", flights);
 
-            await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
+            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
         }
     }
     public static string RandomString(int length)

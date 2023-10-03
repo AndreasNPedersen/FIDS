@@ -29,4 +29,4 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.Run("http://0.0.0.0:5000");
+app.Run("http://*:5000");
