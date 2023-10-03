@@ -15,12 +15,14 @@ services:
     volumes:
       - ~/.docker-volumes/mongo/data:/data/db
   fidsbackend.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
     image: ${DOCKER_REGISTRY-}fidsbackendapi
     build:
       context: .
       dockerfile: FIDS.Backend/Dockerfile
     ports:
-      - 8080:8080
+      - 5000:5000
   fidsdepartureclient:
     image: ${DOCKER_REGISTRY-}fidsdepartureclient
     build:
