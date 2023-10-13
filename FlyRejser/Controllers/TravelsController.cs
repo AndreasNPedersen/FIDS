@@ -12,15 +12,19 @@ namespace FlyRejser.Controllers
     public class TravelsController : ControllerBase
     {
         private readonly FlyRejserContext _context;
+        private readonly ILogger _logger;
+        private FlightServiceAPIClient _flightService;
 
-        public TravelsController(FlyRejserContext context)
+        public TravelsController(FlyRejserContext context, ILogger log)
         {
             _context = context;
+            _logger = log;
+            _flightService = new FlightServiceAPIClient(_logger);
         }
 
         // GET: api/Travels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TravelResponseDTO>>> GetTravel()
+        public async Task<ActionResult<IEnumerable<TravelResponseDTO>>> GetTravels()
         {
           if (_context.Travel == null)
           {
@@ -95,14 +99,14 @@ namespace FlyRejser.Controllers
         [HttpPost]
         public async Task<ActionResult<Travel>> PostTravel(TravelRequestDTO travelRequest)
         {
-            if (_context.Travel == null)
+            
+            var flight = _flightService.GetFlightIdAsync(travelRequest.FlightId);
+            if (_context.Travel == null && flight == null)
             {
                 return Problem("Entity set 'FlyRejserContext.Travel'  is null.");
             }
 
-            var flightService = new FlightServiceAPIClient();
-
-            var travel = new Travel(travelRequest.ToLocation, travelRequest.FromLocation, travelRequest.ArrivalDate, travelRequest.DepartureDate, flightService.GetFlightId());
+            var travel = new Travel(travelRequest.ToLocation, travelRequest.FromLocation, travelRequest.ArrivalDate, travelRequest.DepartureDate,flight.Id);
 
             _context.Travel.Add(travel);
             await _context.SaveChangesAsync();

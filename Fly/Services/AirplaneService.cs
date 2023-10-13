@@ -17,7 +17,8 @@ namespace Fly.Services
     {
         private readonly AirplaneDbContext _db;
         private readonly ILogger<AirplaneService> _logger;
-        public AirplaneService(AirplaneDbContext context, ILogger<AirplaneService> log) { 
+        public AirplaneService(AirplaneDbContext context, ILogger<AirplaneService> log)
+        {
             _db = context;
             _logger = log;
         }
@@ -31,7 +32,8 @@ namespace Fly.Services
 
                 try
                 {
-                    Airplane airplaneEntity = new Airplane { 
+                    Airplane airplaneEntity = new Airplane
+                    {
                         Owner = airplane.Owner,
                         Type = airplane.Type,
                         MaxSeats = airplane.MaxSeats,
@@ -42,7 +44,8 @@ namespace Fly.Services
                     _db.Airplanes.Add(airplaneEntity);
                     _db.SaveChanges();
                     return true;
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     //Logging
                     _logger.LogError("Error in " + nameof(AirplaneService) + ", creating an airplane");
@@ -54,38 +57,38 @@ namespace Fly.Services
 
         public async Task<bool> DeleteAirplaneAsync(int id)
         {
-                if (id < 0) throw new ArgumentNullException();
-                try
-                {
-                    Airplane airplane = await GetAirplaneByIdAsync(id);
-                
-                    if (airplane == null) throw new KeyNotFoundException();
-                    
-                    _db.Airplanes.Remove(airplane);
-                    _db.SaveChanges();
-                    return true;
-                } catch (Exception ex)
-                {
-                    _logger.LogError("Error in " + nameof(AirplaneService) + ", Deleting an airplane");
-                    return false;
-                }
-  
+            if (id < 0) throw new ArgumentNullException();
+            try
+            {
+                Airplane airplane = await GetAirplaneByIdAsync(id);
+
+                if (airplane == null) throw new KeyNotFoundException();
+
+                _db.Airplanes.Remove(airplane);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error in " + nameof(AirplaneService) + ", Deleting an airplane");
+                return false;
+            }
+
         }
 
-        public Task<Airplane?> GetAirplaneByIdAsync(int id)
+        public async Task<Airplane> GetAirplaneByIdAsync(int id)
         {
-            return Task.Run(() =>
+            try
             {
-                try
-                {
-                    if (id < 0) throw new ArgumentNullException();
-                    return _db.Airplanes.Where(plane => plane.Id == id).Single();
-                } catch (Exception ex) {
-                    //logging thing
-                    _logger.LogError("Error in " + nameof(AirplaneService) + ", Getting an airplane with Id:" + id);
-                    return null;
-                }
-            });
+                if (id < 0) throw new ArgumentNullException();
+                return await _db.Airplanes.FindAsync(id);
+            }
+            catch (Exception ex)
+            {
+                //logging thing
+                _logger.LogError("Error in " + nameof(AirplaneService) + ", Getting an airplane with Id:" + id);
+                return null;
+            }
         }
 
         public Task<List<Airplane>> GetAllAirplaneAsync()

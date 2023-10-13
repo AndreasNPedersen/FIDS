@@ -1,15 +1,19 @@
-﻿namespace FlyRejser.Service
+﻿using FlyRejser.DTO;
+using FlyRejser.Helpers;
+
+namespace FlyRejser.Service
 {
     internal class FlightServiceAPIClient
     {
-        public FlightServiceAPIClient()
+        private FlightHelper _flightHelper;
+        public FlightServiceAPIClient(ILogger logger)
         {
-
+            _flightHelper = new FlightHelper(logger);
         }
 
-        public int GetFlightId()
+        public async Task<Flight> GetFlightIdAsync(int id)
         {
-            return 0;
+            return await _flightHelper.GetAsync(id.ToString());
         }
         
     }

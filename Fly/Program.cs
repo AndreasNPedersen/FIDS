@@ -18,7 +18,7 @@ namespace Fly
             builder.Services.AddSwaggerGen();
             
             builder.Services.AddDbContextPool<AirplaneDbContext>(opt =>
-                opt.UseSqlServer($"Data Source={Environment.GetEnvironmentVariable("Ip")},1433;Initial Catalog=Airplanes;User ID=sa;Password=yourStrong(!)Password;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+                opt.UseSqlServer($"Data Source={Environment.GetEnvironmentVariable("DatabaseIp")},1433;Initial Catalog=Airplanes;User ID=sa;Password=yourStrong(!)Password;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             
             builder.Services.AddScoped<IAirplaneService,AirplaneService>();
             builder.Services.AddCors(x => x.AddPolicy("allowall",
