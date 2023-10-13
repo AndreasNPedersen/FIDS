@@ -19,16 +19,16 @@ namespace Fly.Controllers
 
         // GET: Airplane
         [HttpGet]
-        public ActionResult<List<Airplane>> GetAll()
+        public async Task<ActionResult<List<Airplane>>> GetAll()
         {
-            return Ok(_airplaneService.GetAllAirplane());
+            return Ok( await _airplaneService.GetAllAirplaneAsync());
         }
 
         // GET: Airplane/5
         [HttpGet("{id}")]
-        public ActionResult<Airplane> GetOne(int id)
+        public async Task<ActionResult<Airplane>> GetOne(int id)
         {
-            Airplane plane = _airplaneService.GetAirplaneById(id);
+            Airplane plane = await _airplaneService.GetAirplaneByIdAsync(id);
             if (plane == null)
             {
                 return NotFound();
@@ -39,9 +39,9 @@ namespace Fly.Controllers
 
         // POST: Airplane
         [HttpPost]
-        public IActionResult Create(AirplaneDto airplane)
+        public async Task<ActionResult> Create(AirplaneDto airplane)
         {
-            bool created = _airplaneService.AddAirplane(airplane);
+            bool created = await _airplaneService.AddAirplaneAsync(airplane);
             switch (created)
             {
                 case true:
@@ -51,12 +51,11 @@ namespace Fly.Controllers
             };
         }
 
-
         // DELETE: Airplane/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            bool deleted = _airplaneService.DeleteAirplane(id);
+            bool deleted = await _airplaneService.DeleteAirplaneAsync(id);
             switch (deleted)
             {
                 case true:

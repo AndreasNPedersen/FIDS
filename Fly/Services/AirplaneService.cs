@@ -7,10 +7,10 @@ namespace Fly.Services
 
     public interface IAirplaneService
     {
-        List<Airplane> GetAllAirplane();
-        Airplane GetAirplaneById(int id);
-        bool AddAirplane(AirplaneDto airplane);
-        bool DeleteAirplane(int id);  
+        Task<List<Airplane>> GetAllAirplaneAsync();
+        Task<Airplane?> GetAirplaneByIdAsync(int id);
+        Task<bool> AddAirplaneAsync(AirplaneDto airplane);
+        Task<bool> DeleteAirplaneAsync(int id);
     }
 
     public class AirplaneService : IAirplaneService
@@ -22,62 +22,79 @@ namespace Fly.Services
             _logger = log;
         }
 
-        public bool AddAirplane(AirplaneDto airplane)
+        public Task<bool> AddAirplaneAsync(AirplaneDto airplane)
         {
-            if (airplane == null) throw new ArgumentNullException();
-
-            try
+            return Task.Run(() =>
             {
-                Airplane airplaneEntity = new Airplane { 
-                    Owner = airplane.Owner,
-                    Type = airplane.Type,
-                    MaxSeats = airplane.MaxSeats,
-                    MaxVolumeCargo = airplane.MaxVolumeCargo,
-                    MaxWeightCargo = airplane.MaxWeightCargo
-                };
 
-                _db.Airplanes.Add(airplaneEntity);
-                _db.SaveChanges();
-                return true;
-            } catch (Exception ex)
-            {
-                //Logging
-                _logger.LogError("Error in " + nameof(AirplaneService) + ", creating an airplane");
-                return false;
-            }
+                if (airplane == null) throw new ArgumentNullException();
+
+                try
+                {
+                    Airplane airplaneEntity = new Airplane { 
+                        Owner = airplane.Owner,
+                        Type = airplane.Type,
+                        MaxSeats = airplane.MaxSeats,
+                        MaxVolumeCargo = airplane.MaxVolumeCargo,
+                        MaxWeightCargo = airplane.MaxWeightCargo
+                    };
+
+                    _db.Airplanes.Add(airplaneEntity);
+                    _db.SaveChanges();
+                    return true;
+                } catch (Exception ex)
+                {
+                    //Logging
+                    _logger.LogError("Error in " + nameof(AirplaneService) + ", creating an airplane");
+                    return false;
+                }
+            });
         }
 
-        public bool DeleteAirplane(int id)
-        {
-            if (id < 0) throw new ArgumentNullException();
-            try
-            {
-                _db.Airplanes.Remove(GetAirplaneById(id));
-                _db.SaveChanges();
-                return true;
-            } catch (Exception ex)
-            {
-                _logger.LogError("Error in " + nameof(AirplaneService) + ", Deleting an airplane");
-                return false;
-            }
-        }
 
-        public Airplane GetAirplaneById(int id)
+        public async Task<bool> DeleteAirplaneAsync(int id)
         {
-            try
-            {
                 if (id < 0) throw new ArgumentNullException();
-                return _db.Airplanes.Where(plane => plane.Id == id).Single();
-            } catch (Exception ex) {
-                //logging thing
-                _logger.LogError("Error in " + nameof(AirplaneService) + ", Getting an airplane with Id:" + id);
-                return default;
-            }
+                try
+                {
+                    Airplane airplane = await GetAirplaneByIdAsync(id);
+                
+                    if (airplane == null) throw new KeyNotFoundException();
+                    
+                    _db.Airplanes.Remove(airplane);
+                    _db.SaveChanges();
+                    return true;
+                } catch (Exception ex)
+                {
+                    _logger.LogError("Error in " + nameof(AirplaneService) + ", Deleting an airplane");
+                    return false;
+                }
+  
         }
 
-        public List<Airplane> GetAllAirplane()
+        public Task<Airplane?> GetAirplaneByIdAsync(int id)
         {
-            return _db.Airplanes.ToList();
+            return Task.Run(() =>
+            {
+                try
+                {
+                    if (id < 0) throw new ArgumentNullException();
+                    return _db.Airplanes.Where(plane => plane.Id == id).Single();
+                } catch (Exception ex) {
+                    //logging thing
+                    _logger.LogError("Error in " + nameof(AirplaneService) + ", Getting an airplane with Id:" + id);
+                    return null;
+                }
+            });
+        }
+
+        public Task<List<Airplane>> GetAllAirplaneAsync()
+        {
+            return Task.Run(() =>
+            {
+                return _db.Airplanes.ToList();
+            }
+            );
         }
     }
 }
