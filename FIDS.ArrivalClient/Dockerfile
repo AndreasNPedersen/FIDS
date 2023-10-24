@@ -5,7 +5,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["FIDS.ArrivalClient/FIDS.ArivalClient.csproj", "FIDS.ArrivalClient/"]
+COPY ["FIDS.ArrivalClient/FIDS.ArrivalClient.csproj", "FIDS.ArrivalClient/"]
 COPY ["FIDS.Backend/FIDS.Backend.csproj", "FIDS.Backend/"]
 RUN dotnet restore "FIDS.ArrivalClient/FIDS.ArrivalClient.csproj"
 COPY . .
