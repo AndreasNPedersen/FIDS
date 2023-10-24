@@ -1,3 +1,4 @@
+using System.Data.SqlTypes;
 using FIDS.Backend.Domain;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,21 +15,14 @@ public class DeparturesController : ControllerBase
         _logger = logger;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
+    // GET: api/Travels
+    [HttpGet]
     [HttpGet(Name = "GetAllDepartures")]
-    [ProducesResponseType(typeof(IEnumerable<Flight>), 200)]
-    public IEnumerable<Flight> GetFlights()
+    public async Task<IEnumerable<TravelResponseDTO>> GetTravel()
     {
         _logger.LogInformation("GetAllDepartures");
-        return new List<Flight>
-        {
-            new Flight { Id = 2, Destination = "Copenhagen", Status = "On Time" },
-            // Tilføj flere flights som nødvendigt
-        };
+        List<TravelResponseDTO> list = new List<TravelResponseDTO>();
+        list.Add(new TravelResponseDTO(1, "Madridd", "Billund", DateTime.Now.AddHours(2), DateTime.Now, 7));
+        return list;
     }
 }
-
-public class Departures { }

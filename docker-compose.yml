@@ -31,3 +31,10 @@ services:
     build:
       context: .
       dockerfile: FIDS.DepartureClient/Dockerfile
+  fidsarivalclient:
+    environment:
+      - BACKEND_URL=http://fidsbackend:5000
+    image: ${DOCKER_REGISTRY-}fidsarivallient
+    build:
+      context: .
+      dockerfile: FIDS.ArivalClient/Dockerfile

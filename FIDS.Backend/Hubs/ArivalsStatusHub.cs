@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace FIDS.Backend.Hubs
 {
-    public class DepartureStatusHub : Hub
+    public class ArivalsStatusHub : Hub
     {
         public async Task SendFlightStatus(List<TravelResponseDTO> travels)
         {
-            await Clients.All.SendAsync("ReceiveDepartureStatus", travels);
+            await Clients.All.SendAsync("ReceiveArivalsStatus", travels);
         }
     }
 }

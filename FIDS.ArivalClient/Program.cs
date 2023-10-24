@@ -15,7 +15,7 @@ while (!cts.IsCancellationRequested)
 {
     try
     {
-        var response = await httpClient.GetAsync($"{apiUrl}/Departures", cts.Token);
+        var response = await httpClient.GetAsync($"{apiUrl}/Arivals", cts.Token);
         response.EnsureSuccessStatusCode();
         var responseBody = await response.Content.ReadAsStringAsync();
 
@@ -25,7 +25,7 @@ while (!cts.IsCancellationRequested)
         };
         var travels = JsonSerializer.Deserialize<List<TravelResponseDTO>>(responseBody, options);
 
-        Console.WriteLine("Initial departure travel status:");
+        Console.WriteLine("Initial arivals travel status:");
         foreach (var travel in travels)
         {
             Console.WriteLine($"Flight ID: {travel.Id}, From: {travel.FromLocation}, To: {travel.Id}, DepartureTime: {travel.DepartureDate}, ArivalTime: {travel.ArrivalDate}");
@@ -51,10 +51,10 @@ while (!cts.IsCancellationRequested)
 
 
 
-Console.WriteLine("Updated departure travel status:");
+Console.WriteLine("Updated ariva travel status:");
 // Opret en forbindelse til SignalR hubben
 var hubConnection = new HubConnectionBuilder().WithUrl(hubUrl).Build();
-hubConnection.On<List<TravelResponseDTO>>("ReceiveDepartureStatus", updatedFlights =>
+hubConnection.On<List<TravelResponseDTO>>("ReceiveArivalsStatus", updatedFlights =>
 {
 
     foreach (var flight in updatedFlights)

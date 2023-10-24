@@ -8,7 +8,8 @@ builder.Services.AddSignalR();
 builder.Services.AddSingleton<IBoardingService, BoardingService>();
 builder.Services.AddSingleton<IBaggageService, BaggageService>();
 builder.Services.AddSingleton<IFlightService, FlightService>();
-builder.Services.AddHostedService<Worker>();
+builder.Services.AddHostedService<DepartureWorker>();
+builder.Services.AddHostedService<ArivalsWorker>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -21,6 +22,7 @@ app.UseRouting();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<DepartureStatusHub>("/hub");
+    endpoints.MapHub<ArivalsStatusHub>("/hub");
     endpoints.MapControllers();
 });
 // Configure the HTTP request pipeline.

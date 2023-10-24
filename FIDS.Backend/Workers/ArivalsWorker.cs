@@ -7,44 +7,44 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace FIDS.Backend.Workers;
 
-public sealed class Worker : BackgroundService
+public sealed class ArivalsWorker : BackgroundService
 {
-    private readonly ILogger<Worker> _logger;
+    private readonly ILogger<ArivalsWorker> _logger;
     private readonly IBoardingService _boardingService;
     private readonly IBaggageService _baggageService;
     private readonly IFlightService _flightService;
-    private readonly IHubContext<DepartureStatusHub> _departureStatusHubContext;
-    private List<Flight> flights = new List<Flight>();//for test only
+    private readonly IHubContext<ArivalsStatusHub> _arivalsStatusHubContext;
+    private List<TravelResponseDTO> travels = new List<TravelResponseDTO>();//for test only
     private static Random random = new Random();//for test only
-    public Worker(ILogger<Worker> logger
+    public ArivalsWorker(ILogger<ArivalsWorker> logger
         , IBoardingService boardingService
         , IBaggageService baggageService
         , IFlightService FlightService
-        , IHubContext<DepartureStatusHub> departureStatusHubContext
+        , IHubContext<ArivalsStatusHub> arivalsStatusHubContext
         )
     {
         _logger = logger;
         _boardingService = boardingService;
         _baggageService = baggageService;
         _flightService = FlightService;
-        _departureStatusHubContext = departureStatusHubContext;
+        _arivalsStatusHubContext = arivalsStatusHubContext;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            string flightdestination = RandomString(10);
-            flights.Add(new Flight { Id = 1, Destination = flightdestination, Status = "On Time" });
-
+            string toLocation = RandomString(10);
+            string fromLocation = RandomString(10);
+            int id = 1;
+            travels.Add(new TravelResponseDTO(id++, toLocation, fromLocation, DateTime.Now.AddHours(2), DateTime.Now, 19));
 
             //Fetch the next 20 departures from the Travel api
             //Save to database TODO:
             //Get deparurer from database
             //Update Clients
             _logger.LogInformation("Notify clients about departure updates");
-            await _departureStatusHubContext.Clients.All.SendAsync("ReceiveDepartureStatus", flights);
-
+            await _arivalsStatusHubContext.Clients.All.SendAsync("ReceiveArivalsStatus", travels);
             await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
         }
     }
