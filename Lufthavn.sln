@@ -5,9 +5,7 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlyRejser", "FlyRejser\FlyRejser.csproj", "{E03E11EA-68B1-47D8-9E1F-55FA6E1A0124}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fly", "Fly\Fly.csproj", "{CEE16622-4BE5-45D5-AE18-274441636928}"
-EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "FlyrejserDB", "FlyrejserDB\FlyrejserDB.sqlproj", "{8F2D4748-681B-4C05-AE76-0DE8EA5518A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fly", "Fly\Fly.csproj", "{CEE16622-4BE5-45D5-AE18-274441636928}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIDS.Backend", "FIDS.Backend\FIDS.Backend.csproj", "{79C4D5A0-2390-4DA6-ABF5-E4234E31BC3F}"
 EndProject
