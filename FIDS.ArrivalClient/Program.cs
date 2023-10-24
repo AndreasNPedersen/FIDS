@@ -3,7 +3,7 @@ using FIDS.Backend.Domain;
 using Microsoft.AspNetCore.SignalR.Client;
 
 var apiUrl = Environment.GetEnvironmentVariable("BACKEND_URL");
-var hubUrl = apiUrl + "/hub";
+var hubUrl = apiUrl + "/arrivalsHub";
 
 
 // Opret en HTTP klient til at kalde API'en
@@ -15,7 +15,7 @@ while (!cts.IsCancellationRequested)
 {
     try
     {
-        var response = await httpClient.GetAsync($"{apiUrl}/Arivals", cts.Token);
+        var response = await httpClient.GetAsync($"{apiUrl}/Arrivals", cts.Token);
         response.EnsureSuccessStatusCode();
         var responseBody = await response.Content.ReadAsStringAsync();
 
@@ -25,10 +25,10 @@ while (!cts.IsCancellationRequested)
         };
         var travels = JsonSerializer.Deserialize<List<TravelResponseDTO>>(responseBody, options);
 
-        Console.WriteLine("Initial arivals travel status:");
+        Console.WriteLine("Initial arrivals travel status:");
         foreach (var travel in travels)
         {
-            Console.WriteLine($"Flight ID: {travel.Id}, From: {travel.FromLocation}, To: {travel.Id}, DepartureTime: {travel.DepartureDate}, ArivalTime: {travel.ArrivalDate}");
+            Console.WriteLine($"Flight ID: {travel.Id}, From: {travel.FromLocation}, To: {travel.Id}, DepartureTime: {travel.DepartureDate}, ArrivalTime: {travel.ArrivalDate}");
         }
         break;
     }
@@ -51,15 +51,15 @@ while (!cts.IsCancellationRequested)
 
 
 
-Console.WriteLine("Updated ariva travel status:");
+Console.WriteLine("Updated arrival travel status:");
 // Opret en forbindelse til SignalR hubben
 var hubConnection = new HubConnectionBuilder().WithUrl(hubUrl).Build();
-hubConnection.On<List<TravelResponseDTO>>("ReceiveArivalsStatus", updatedFlights =>
+hubConnection.On<List<TravelResponseDTO>>("ReceiveArrivalsStatus", updatedFlights =>
 {
 
     foreach (var flight in updatedFlights)
     {
-        Console.WriteLine($"Flight ID: {flight.Id}, From: {flight.FromLocation}, To: {flight.Id}, DepartureTime: {flight.DepartureDate}, ArivalTime: {flight.ArrivalDate}");
+        Console.WriteLine($"Flight ID: {flight.Id}, From: {flight.FromLocation}, To: {flight.Id}, DepartureTime: {flight.DepartureDate}, ArrivalTime: {flight.ArrivalDate}");
     }
 });
 

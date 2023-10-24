@@ -16,9 +16,8 @@ public class DeparturesController : ControllerBase
     }
 
     // GET: api/Travels
-    [HttpGet]
     [HttpGet(Name = "GetAllDepartures")]
-    public async Task<IEnumerable<TravelResponseDTO>> GetTravel()
+    public async Task<IEnumerable<TravelResponseDTO>> GetDepartures()
     {
         _logger.LogInformation("GetAllDepartures");
         List<TravelResponseDTO> list = new List<TravelResponseDTO>();

@@ -3,7 +3,7 @@ using FIDS.Backend.Domain;
 using Microsoft.AspNetCore.SignalR.Client;
 
 var apiUrl = Environment.GetEnvironmentVariable("BACKEND_URL");
-var hubUrl = apiUrl + "/hub";
+var hubUrl = apiUrl + "/departuresHub";
 
 
 // Opret en HTTP klient til at kalde API'en
@@ -28,7 +28,7 @@ while (!cts.IsCancellationRequested)
         Console.WriteLine("Initial departure travel status:");
         foreach (var travel in travels)
         {
-            Console.WriteLine($"Flight ID: {travel.Id}, From: {travel.FromLocation}, To: {travel.Id}, DepartureTime: {travel.DepartureDate}, ArivalTime: {travel.ArrivalDate}");
+            Console.WriteLine($"Flight ID: {travel.Id}, From: {travel.FromLocation}, To: {travel.Id}, DepartureTime: {travel.DepartureDate}, ArrivalTime: {travel.ArrivalDate}");
         }
         break;
     }

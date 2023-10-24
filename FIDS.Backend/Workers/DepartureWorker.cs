@@ -13,14 +13,14 @@ public sealed class DepartureWorker : BackgroundService
     private readonly IBoardingService _boardingService;
     private readonly IBaggageService _baggageService;
     private readonly IFlightService _flightService;
-    private readonly IHubContext<DepartureStatusHub> _departureStatusHubContext;
+    private readonly IHubContext<DeparturesStatusHub> _departureStatusHubContext;
     private List<TravelResponseDTO> travels = new List<TravelResponseDTO>();//for test only
     private static Random random = new Random();//for test only
     public DepartureWorker(ILogger<DepartureWorker> logger
         , IBoardingService boardingService
         , IBaggageService baggageService
         , IFlightService FlightService
-        , IHubContext<DepartureStatusHub> departureStatusHubContext
+        , IHubContext<DeparturesStatusHub> departureStatusHubContext
         )
     {
         _logger = logger;
