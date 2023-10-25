@@ -4,6 +4,7 @@ using FlyRejser.Data;
 using FlyRejser.DTO;
 using System.Collections.Generic;
 using FlyRejser.Service;
+using RabbitMQ.Client;
 
 namespace FlyRejser.Controllers
 {
@@ -12,14 +13,17 @@ namespace FlyRejser.Controllers
     public class TravelsController : ControllerBase
     {
         private readonly FlyRejserContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<TravelsController> _logger;
         private FlightServiceAPIClient _flightService;
+        private IConnection _connection;
 
-        public TravelsController(FlyRejserContext context, ILogger log)
+        public TravelsController(FlyRejserContext context, ILogger<TravelsController> log)
         {
             _context = context;
             _logger = log;
             _flightService = new FlightServiceAPIClient(_logger);
+            var factory = new ConnectionFactory { HostName = "host.docker.internal" };
+            _connection = factory.CreateConnection();
         }
 
         // GET: api/Travels
@@ -30,7 +34,7 @@ namespace FlyRejser.Controllers
           {
               return NotFound();
           }
-            return await _context.Travel.Select(x => new TravelResponseDTO(x.Id, x.ToLocation, x.FromLocation, x.ArrivalDate, x.DepartureDate, x.FlightId)).ToListAsync();
+            return await _context.Travel.Select(x => new TravelResponseDTO(x.Id, x.ToLocation, x.FromLocation, x.ArrivalDate, x.DepartureDate, x.FlightId, x.Status)).ToListAsync();
         }
 
         // GET: api/Travels/5
@@ -48,7 +52,7 @@ namespace FlyRejser.Controllers
                 return NotFound();
             }
 
-            var responseDto = new TravelResponseDTO(travel.Id, travel.ToLocation, travel.FromLocation, travel.ArrivalDate, travel.DepartureDate, travel.FlightId);
+            var responseDto = new TravelResponseDTO(travel.Id, travel.ToLocation, travel.FromLocation, travel.ArrivalDate, travel.DepartureDate, travel.FlightId, travel.Status);
             
             return responseDto;
         }
@@ -78,6 +82,7 @@ namespace FlyRejser.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                RabbitMQProducer.SendUpdatedJourney(_connection, _logger, travel);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -106,11 +111,12 @@ namespace FlyRejser.Controllers
                 return Problem("Entity set 'FlyRejserContext.Travel'  is null.");
             }
 
-            var travel = new Travel(travelRequest.ToLocation, travelRequest.FromLocation, travelRequest.ArrivalDate, travelRequest.DepartureDate,flight.Id);
+            var travel = new Travel(travelRequest.ToLocation, travelRequest.FromLocation, travelRequest.ArrivalDate, travelRequest.DepartureDate,flight.Id,"On Time");
 
             _context.Travel.Add(travel);
+            
             await _context.SaveChangesAsync();
-
+            RabbitMQProducer.SendJourney(_connection,_logger,travel); 
             return CreatedAtAction("GetTravel", new { id = travel.Id }, travel);
         }
 

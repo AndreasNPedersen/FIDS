@@ -1,0 +1,49 @@
+version: '3.4'
+
+services:
+  fly:
+    image: ${DOCKER_REGISTRY-}fly
+    build:
+      context: .
+      dockerfile: Fly/Dockerfile
+    depends_on: 
+    - db
+    environment:
+    - DatabaseIp=db
+
+  flyplusjourneycontentenricher:
+    image: ${DOCKER_REGISTRY-}flyplusjourneycontentenricher
+    build:
+      context: .
+      dockerfile: FlyPlusJourneyContentEnricher/Dockerfile
+
+
+  flyrejser:
+    image: ${DOCKER_REGISTRY-}flyrejser
+    build:
+      context: .
+      dockerfile: FlyRejser/Dockerfile
+    environment:
+        - DatabaseIp=db
+    depends_on: 
+    - db
+
+
+  workerfids:
+    image: ${DOCKER_REGISTRY-}workerfids
+    build:
+      context: .
+      dockerfile: WorkerFIDS/Dockerfile
+    ports:
+    - 8010:8010
+    environment:
+    - ASPNETCORE_URLS=ws://*:8010
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+        - ACCEPT_EULA=Y
+        - MSSQL_SA_PASSWORD=yourStrong(!)Password
+    ports:
+        -  1433:1433
+
