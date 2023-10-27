@@ -8,7 +8,7 @@ namespace FlyPlusJourneyContentEnricher.Models.DTO
 {
     public class FlightFIDSArrivalDTO
     {
-        public string FlightJourneyId { get; set; }
+        public Guid FlightJourneyId { get; set; }
 
         public string FromLocation { get; set; }
         public DateTime ArrivalDate { get; set; }

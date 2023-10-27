@@ -41,7 +41,7 @@ namespace FlyRejser.Controllers
 
         // GET: api/Travels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TravelResponseDTO>> GetTravel(int id)
+        public async Task<ActionResult<TravelResponseDTO>> GetTravel(Guid id)
         {
             if (_context.Travel == null)
             {
@@ -62,7 +62,7 @@ namespace FlyRejser.Controllers
         // PATCH: api/Travels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPatch("{id}")]
-        public async Task<IActionResult> PatchTravel(int id, TravelRequestUpdateDTO travelUpdateDTO)
+        public async Task<IActionResult> PatchTravel(Guid id, TravelRequestUpdateDTO travelUpdateDTO)
         {
             if (id != travelUpdateDTO.Id)
             {
@@ -112,7 +112,7 @@ namespace FlyRejser.Controllers
         // PATCH: api/Travels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPatch("{id}/status")]
-        public async Task<IActionResult> PatchTravelStatus(int id, [FromBody] string status)
+        public async Task<IActionResult> PatchTravelStatus(Guid id, [FromBody] string status)
         {
 
             var travel = await _context.Travel.FindAsync(_context.Travel.Find(id));
@@ -153,7 +153,7 @@ namespace FlyRejser.Controllers
         public async Task<ActionResult<Travel>> PostTravel(TravelRequestDTO travelRequest)
         {
             
-            var flight = _flightService.GetFlightIdAsync(travelRequest.FlightId);
+            var flight = await  _flightService.GetFlightIdAsync(travelRequest.FlightId);
             if (_context.Travel == null && flight == null)
             {
                 return Problem("Entity set 'FlyRejserContext.Travel'  is null.");
@@ -170,7 +170,7 @@ namespace FlyRejser.Controllers
 
         // DELETE: api/Travels/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTravel(int id)
+        public async Task<IActionResult> DeleteTravel(Guid id)
         {
             if (_context.Travel == null)
             {
@@ -188,7 +188,7 @@ namespace FlyRejser.Controllers
             return NoContent();
         }
 
-        private bool TravelExists(int id)
+        private bool TravelExists(Guid id)
         {
             return (_context.Travel?.Any(e => e.Id == id)).GetValueOrDefault();
         }

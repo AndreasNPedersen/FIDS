@@ -8,9 +8,9 @@ namespace Fly.Services
     public interface IAirplaneService
     {
         Task<List<Airplane>> GetAllAirplaneAsync();
-        Task<Airplane?> GetAirplaneByIdAsync(int id);
+        Task<Airplane?> GetAirplaneByIdAsync(Guid id);
         Task<bool> AddAirplaneAsync(AirplaneDto airplane);
-        Task<bool> DeleteAirplaneAsync(int id);
+        Task<bool> DeleteAirplaneAsync(Guid id);
     }
 
     public class AirplaneService : IAirplaneService
@@ -55,9 +55,9 @@ namespace Fly.Services
         }
 
 
-        public async Task<bool> DeleteAirplaneAsync(int id)
+        public async Task<bool> DeleteAirplaneAsync(Guid id)
         {
-            if (id < 0) throw new ArgumentNullException();
+            if (id.ToString().Length < 0) throw new ArgumentNullException();
             try
             {
                 Airplane airplane = await GetAirplaneByIdAsync(id);
@@ -76,11 +76,11 @@ namespace Fly.Services
 
         }
 
-        public async Task<Airplane> GetAirplaneByIdAsync(int id)
+        public async Task<Airplane> GetAirplaneByIdAsync(Guid id)
         {
             try
             {
-                if (id < 0) throw new ArgumentNullException();
+                if (id.ToString().Length < 0) throw new ArgumentNullException();
                 return await _db.Airplanes.FindAsync(id);
             }
             catch (Exception ex)

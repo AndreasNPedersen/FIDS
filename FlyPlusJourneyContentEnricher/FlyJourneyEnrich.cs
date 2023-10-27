@@ -68,10 +68,8 @@ namespace FlyPlusJourneyContentEnricher
                             EnrichFJDepart.SendFJDepartMessage(flight, plane, channel);
                             break;
                         case string b when b.Contains("Arrival"):
+                            EnrichFJBooking.SendFJMessage(flight, plane, channel);
                             EnrichFJArrival.SendFJArrivalMessage(flight, plane, channel);
-                            break;
-                        case string c when c.Contains("Booking"):
-                            
                             break;
                     }
                 } catch(Exception ex) { _logger.LogError(ex.Message); }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
 
-let socket = new WebSocket("ws://"+process.env.BACKEND_FIDS_IP+":8010/");
+let socket = new WebSocket("ws://localhost:8010/");
 function DataTableArrival() {
   const [data, setData] = useState([])
   useEffect(()=> {

@@ -2,7 +2,7 @@
 {
     public class BaggageUpdateStatusDTO
     {
-        public int FlightJourneyId { get; set; }
+        public Guid FlightJourneyId { get; set; }
         public string Status { get; set;}
     }
 }

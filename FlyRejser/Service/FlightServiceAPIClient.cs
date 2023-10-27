@@ -5,7 +5,7 @@ namespace FlyRejser.Service
 {
     public interface IFlightServiceAPIClient
     {
-        public Task<Flight> GetFlightIdAsync(int id);
+        public Task<Flight> GetFlightIdAsync(Guid id);
     }
     public class FlightServiceAPIClient : IFlightServiceAPIClient
     {
@@ -15,7 +15,7 @@ namespace FlyRejser.Service
             _flightHelper = new FlightHelper(logger);
         }
 
-        public async Task<Flight> GetFlightIdAsync(int id)
+        public async Task<Flight> GetFlightIdAsync(Guid id)
         {
             return await _flightHelper.GetAsync(id.ToString());
         }

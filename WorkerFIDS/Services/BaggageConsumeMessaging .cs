@@ -10,6 +10,7 @@ using WorkerFIDS.Services;
 
 namespace WorkerFIDS.Services
 {
+    //Not implemented yet from Baggage team
     public interface IBaggageConsumeMessaging
     {
         public void GetMessageGateIdChange();
@@ -66,7 +67,7 @@ namespace WorkerFIDS.Services
                         throw new Exception();
                     }
                     var gate = JsonConvert.DeserializeObject<GateUpdateDTO>(message);
-                    var flight = flightDeps.Find(x => x.FlightJourneyId == gate.FlightJourneyId.ToString());
+                    var flight = flightDeps.Find(x => x.FlightJourneyId == gate.FlightJourneyId);
                     var flightId = flightDeps.IndexOf(flight);
                     flightDeps[flightId].Gate = gate.GateId;
                     _database.StringSet("Departs", JsonConvert.SerializeObject(flightDeps));
@@ -117,7 +118,7 @@ namespace WorkerFIDS.Services
                         throw new Exception();
                     }
                     var gate = JsonConvert.DeserializeObject<GateUpdateStatusDTO>(message);
-                    var flight = flightDeps.Find(x => x.FlightJourneyId == gate.FlightJourneyId.ToString());
+                    var flight = flightDeps.Find(x => x.FlightJourneyId == gate.FlightJourneyId);
                     var flightId = flightDeps.IndexOf(flight);
                     flightDeps[flightId].Status = gate.Status;
                     _database.StringSet("Departs", JsonConvert.SerializeObject(flightDeps));

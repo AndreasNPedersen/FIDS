@@ -11,7 +11,7 @@ namespace FlyRejser.Service
         public static void SendJourney(IConnection connection, ILogger logger, Travel travel)
         {
             string exchangeName = "FlightJourney";
-            string[] routingKey = { "Journey.Created.Booking", "Journey.Created.FIDS.Departure", "Journey.Created.Boarding", "Journey.Created.FIDS.Arrival" };
+            string[] routingKey = { "Journey.Created.FIDS.Departure", "Journey.Created.Boarding", "Journey.Created.FIDS.Arrival" };
             using var channel = connection.CreateModel();
             channel.ExchangeDeclare(exchange: "Dlx-exchange", type: ExchangeType.Direct);
             channel.ExchangeDeclare(exchange: exchangeName, type: ExchangeType.Topic);

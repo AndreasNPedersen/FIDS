@@ -15,6 +15,6 @@ namespace FlyPlusJourneyContentEnricher.Models.DTO
         public string FlightOrigin { get; set; }
         public string FlightDestination { get; set; }
         public int PassengersAvailableTotal { get; set; }
-        public double BaggageWeightAvailableTotal { get; set; }
+        public int BaggageWeightAvailableTotal { get; set; }
     }
 }

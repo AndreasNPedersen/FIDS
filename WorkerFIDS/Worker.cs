@@ -37,7 +37,10 @@ namespace WorkerFIDS
             var connection = _connectionFactory.CreateConnection();
             _server.Start();
             var database = _redis.GetDatabase();
-            GetCurrentFlightJourneys.ReNewArrivalAndDepartures(connection,_logger);
+            if (!database.KeyExists("Arrival") && !database.KeyExists("Departs"))
+            {
+                GetCurrentFlightJourneys.ReNewArrivalAndDepartures(connection,_logger);
+            }
             _flightPlusJourney = new RabbitFlightPlusJourney(connection, _logger, _server, database, _clientTypes);
             _mq = new GateConsumeMessaging(connection, _logger, database, _server, _clientTypes.DepartureClients);
             //Rabbitmq messages

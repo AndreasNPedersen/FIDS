@@ -12,7 +12,7 @@ namespace FlyPlusJourneyContentEnricher.Services
 {
     public static class EnrichFJBooking
     {
-        public static void SendFJArrivalMessage(Flight flight, Airplane plane, IModel channel)
+        public static void SendFJMessage(Flight flight, Airplane plane, IModel channel)
         {
             string exchangeName = "FlightJourney";
             string enrichedRoutingKey = "BookingPlaneAndFlight"; //to Boarding
@@ -23,7 +23,7 @@ namespace FlyPlusJourneyContentEnricher.Services
                 FlightOrigin = flight.FromLocation,
                 FlightDestination = flight.ToLocation,
                 FlightId = flight.FlightId.ToString(),
-                BaggageWeightAvailableTotal = plane.MaxWeightCargo,
+                BaggageWeightAvailableTotal = Convert.ToInt32(plane.MaxWeightCargo),
                 PassengersAvailableTotal = plane.MaxSeats,
                 planeId = plane.Id.ToString(),
             };

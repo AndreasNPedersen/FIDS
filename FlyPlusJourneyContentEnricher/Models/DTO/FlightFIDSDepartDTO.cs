@@ -11,7 +11,7 @@ namespace FlyPlusJourneyContentEnricher.Models.DTO
         public DateTime DepartureTime { get; set; }
         public string ToAirport {  get; set; }
         public string AirplaneOwner { get; set; }
-        public string FlightJourneyId { get; set; }
+        public Guid FlightJourneyId { get; set; }
         public string Status { get; set; }
         public int Gate {  get; set; }
     }

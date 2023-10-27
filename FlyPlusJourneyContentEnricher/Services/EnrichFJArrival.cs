@@ -21,7 +21,7 @@ namespace FlyPlusJourneyContentEnricher.Services
                 AirplaneOwner = plane.Owner,
                 FromLocation = flight.FromLocation,
                 ArrivalDate = flight.ArrivalDate,
-                FlightJourneyId = flight.Id.ToString(),
+                FlightJourneyId = flight.Id,
                 BagageClaimGate = "1", //missing api call
                 Status = flight.Status
             };

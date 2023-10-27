@@ -21,8 +21,8 @@ namespace FlyPlusJourneyContentEnricher.Services
                 AirplaneOwner = plane.Owner,
                 ToAirport = flight.ToLocation,
                 DepartureTime = flight.DepartureDate,
-                FlightJourneyId = flight.Id.ToString(),
-                Gate = 1, //missing api call
+                FlightJourneyId = flight.Id,
+                Gate = 0, //this will change when Boarding updates it
                 Status = flight.Status
             };
 

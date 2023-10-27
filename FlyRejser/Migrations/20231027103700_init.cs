@@ -17,13 +17,12 @@ namespace FlyRejser.Migrations
                 schema: "FLIGHT",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ToLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FromLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ArrivalDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DepartureDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FlightId = table.Column<int>(type: "int", nullable: false),
+                    FlightId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>

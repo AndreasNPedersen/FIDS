@@ -18,7 +18,7 @@ namespace FlyRejser.Helpers
         {
             try
             {
-                var response = await _httpClient.GetAsync(_uri+"/"+ query);
+                var response = await _httpClient.GetAsync("http://"+_uri+"/airplane/"+ query);
                 var responseBodyJson = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<Flight>(responseBodyJson);
 

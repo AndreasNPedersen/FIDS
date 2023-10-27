@@ -45,19 +45,19 @@ namespace WorkerFIDS.Services
                 return;
             }
             var allCurrentArrivalsInCache = JsonConvert.DeserializeObject<List<FlightFIDSArrivalDTO>>(content);
-            server.SendAsync(client, JsonConvert.SerializeObject(allCurrentArrivalsInCache.OrderByDescending(x => x.ArrivalDate)));
+            server.SendAsync(client, JsonConvert.SerializeObject(allCurrentArrivalsInCache.OrderBy(x => x.ArrivalDate)));
         }
 
         public static void GetDepartures(Guid client, WatsonWsServer server, IDatabase database)
         {
             var content = database.StringGet("Departs");
-            if (String.IsNullOrEmpty(content))
+            if (String.IsNullOrEmpty(content) || content == "{}")
             {
                 return;
             }
 
             var allCurrentdeparturessInCache = JsonConvert.DeserializeObject<List<FlightFIDSDepartDTO>>(content);
-            server.SendAsync(client, JsonConvert.SerializeObject(allCurrentdeparturessInCache.OrderByDescending(x => x.DepartureTime)));
+            server.SendAsync(client, JsonConvert.SerializeObject(allCurrentdeparturessInCache.OrderBy(x => x.DepartureTime)));
         }
 
 

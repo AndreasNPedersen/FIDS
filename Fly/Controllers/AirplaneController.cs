@@ -26,7 +26,7 @@ namespace Fly.Controllers
 
         // GET: Airplane/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Airplane>> GetOne(int id)
+        public async Task<ActionResult<Airplane>> GetOne(Guid id)
         {
             Airplane plane = await _airplaneService.GetAirplaneByIdAsync(id);
             if (plane == null)
@@ -53,7 +53,7 @@ namespace Fly.Controllers
 
         // DELETE: Airplane/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(Guid id)
         {
             bool deleted = await _airplaneService.DeleteAirplaneAsync(id);
             switch (deleted)
