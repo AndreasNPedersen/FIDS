@@ -5,6 +5,7 @@ using FlyRejser.DTO;
 using System.Collections.Generic;
 using FlyRejser.Service;
 using RabbitMQ.Client;
+using System.Diagnostics;
 
 namespace FlyRejser.Controllers
 {
@@ -22,7 +23,7 @@ namespace FlyRejser.Controllers
             _context = context;
             _logger = log;
             _flightService = new FlightServiceAPIClient(_logger);
-            var factory = new ConnectionFactory { HostName = "host.docker.internal" };
+            var factory = new ConnectionFactory { HostName = Environment.GetEnvironmentVariable("RabbitIP") };
             _connection = factory.CreateConnection();
         }
 
@@ -36,6 +37,7 @@ namespace FlyRejser.Controllers
           }
             return await _context.Travel.Select(x => new TravelResponseDTO(x.Id, x.ToLocation, x.FromLocation, x.ArrivalDate, x.DepartureDate, x.FlightId, x.Status)).ToListAsync();
         }
+       
 
         // GET: api/Travels/5
         [HttpGet("{id}")]
@@ -76,6 +78,52 @@ namespace FlyRejser.Controllers
             {
                 travel.FromLocation = travelUpdateDTO.FromLocation;
             }
+            if (travelUpdateDTO.ArrivalDate !< travelUpdateDTO.DepartureDate)
+            {
+                travel.ArrivalDate = travelUpdateDTO.ArrivalDate;
+                travel.DepartureDate = travelUpdateDTO.DepartureDate;
+            }
+            travel.Status = travelUpdateDTO.Status;
+            travel.FlightId = travelUpdateDTO.FlightId;
+
+
+            _context.Entry(travel).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                RabbitMQProducer.SendUpdatedJourney(_connection, _logger, travel);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TravelExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // PATCH: api/Travels/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPatch("{id}/status")]
+        public async Task<IActionResult> PatchTravelStatus(int id, [FromBody] string status)
+        {
+
+            var travel = await _context.Travel.FindAsync(_context.Travel.Find(id));
+            
+            if (travel == null)
+            {
+                return BadRequest();
+            }
+
+            travel.Status = status;
+
 
             _context.Entry(travel).State = EntityState.Modified;
 

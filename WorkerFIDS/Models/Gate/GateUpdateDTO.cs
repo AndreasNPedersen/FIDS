@@ -1,8 +1,8 @@
-﻿namespace FlyRejser.DTO.Gate
+﻿namespace WorkerFIDS.Models.Gate
 {
     public class GateUpdateDTO
     {
-        public string GateId { get; set;}
+        public int GateId { get; set;}
         public int FlightJourneyId { get; set; }
     }
 }

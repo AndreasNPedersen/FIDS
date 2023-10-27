@@ -1,13 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import reportWebVitals from './reportWebVitals';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import FrontPage from './Sections/FrontPage';
+import DataTableDeparture from './Sections/DataTableDeparture';
+import DataTableArrival from './Sections/DataTableArrival';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <FrontPage/>
+  },
+  {
+    path: "/departure",
+    element: <DataTableDeparture/>
+  },
+  {
+    path: "/arrival",
+    element: <DataTableArrival/>
+  },
+]);
+
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

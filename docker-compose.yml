@@ -16,6 +16,9 @@ services:
     build:
       context: .
       dockerfile: FlyPlusJourneyContentEnricher/Dockerfile
+    environment:
+        - RabbitIP=host.docker.internal
+        - FlyIp=fly 
 
 
   flyrejser:
@@ -23,10 +26,11 @@ services:
     build:
       context: .
       dockerfile: FlyRejser/Dockerfile
+    depends_on: 
+        - db
     environment:
         - DatabaseIp=db
-    depends_on: 
-    - db
+        - RabbitIP=host.docker.internal
 
 
   workerfids:
@@ -38,6 +42,10 @@ services:
     - 8010:8010
     environment:
     - ASPNETCORE_URLS=ws://*:8010
+    - RedisIP=redis  
+    - RabbitIP=host.docker.internal 
+    depends_on: 
+    - redis
 
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -46,4 +54,16 @@ services:
         - MSSQL_SA_PASSWORD=yourStrong(!)Password
     ports:
         -  1433:1433
+  
+  redis:
+    image: redis/redis-stack-server:latest
+    ports:
+     - 6379:6379
+
+  frontend:
+    image: fidsfrontend:dev
+    environment:
+    - BACKEND_FIDS_IP=workerfids
+    ports:
+    - 80:80
 

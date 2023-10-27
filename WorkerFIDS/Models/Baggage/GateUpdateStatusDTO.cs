@@ -1,6 +1,6 @@
-﻿namespace FlyRejser.DTO.Gate
+﻿namespace WorkerFIDS.Models.Gate
 {
-    public class GateUpdateStatusDTO
+    public class BaggageUpdateStatusDTO
     {
         public int FlightJourneyId { get; set; }
         public string Status { get; set;}

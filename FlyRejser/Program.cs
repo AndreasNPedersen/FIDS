@@ -20,8 +20,8 @@ namespace FlyRejser
             
             builder.Services.AddCors(x => x.AddPolicy("allowall",
                 x => x.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod()));
-            // Add services to the container.
-           // builder.Services.AddHostedService<WorkerGateUpdates>();
+
+            builder.Services.AddHostedService<RabbitWorker>();
 
             var app = builder.Build();
             using (var scope = app.Services.CreateScope())

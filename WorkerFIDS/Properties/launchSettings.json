@@ -8,10 +8,7 @@
       "dotnetRunMessages": true
     },
     "Docker": {
-      "commandName": "Docker",
-      "environmentVariables": {
-        "ASPNETCORE_URLS": "http://*:8010"
-      }
+      "commandName": "Docker"
     },
     "WSL": {
       "commandName": "WSL2",

@@ -17,6 +17,4 @@ RUN dotnet publish "WorkerFIDS.csproj" -c Release -o /app/publish /p:UseAppHost=
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-EXPOSE 8010
-ENV ASPNETCORE_URLS=ws://*:8010
 ENTRYPOINT ["dotnet", "WorkerFIDS.dll"]

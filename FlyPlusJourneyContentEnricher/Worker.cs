@@ -8,9 +8,9 @@ namespace FlyPlusJourneyContentEnricher
         private FlyJourneyEnrich enricherRabbit;
         public Worker(ILogger<Worker> logger)
         {
-            string airplaneURL = "http://Fly/Airplane/";
+            string airplaneURL = $"http://{Environment.GetEnvironmentVariable("FlyIp")}/Airplane/";
             _logger = logger;
-            var factory = new ConnectionFactory { HostName = "host.docker.internal" };
+            var factory = new ConnectionFactory { HostName = Environment.GetEnvironmentVariable("RabbitIP") };
             enricherRabbit = new FlyJourneyEnrich(factory, _logger,airplaneURL);
         }
 

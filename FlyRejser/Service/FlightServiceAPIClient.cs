@@ -3,7 +3,11 @@ using FlyRejser.Helpers;
 
 namespace FlyRejser.Service
 {
-    internal class FlightServiceAPIClient
+    public interface IFlightServiceAPIClient
+    {
+        public Task<Flight> GetFlightIdAsync(int id);
+    }
+    public class FlightServiceAPIClient : IFlightServiceAPIClient
     {
         private FlightHelper _flightHelper;
         public FlightServiceAPIClient(ILogger logger)
