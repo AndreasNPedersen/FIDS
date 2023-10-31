@@ -39,11 +39,11 @@ public sealed class ArrivalsWorker : BackgroundService
             int id = 1;
             travels.Add(new TravelResponseDTO(id++, toLocation, fromLocation, DateTime.Now.AddHours(2), DateTime.Now, 19));
 
-            //Fetch the next 20 departures from the Travel api
+            //Fetch the next 20 arrivals from the Travel api
             //Save to database TODO:
-            //Get departure from database
+            //Get arrival from database
             //Update Clients
-            _logger.LogInformation("Notify clients about departure updates");
+            _logger.LogInformation("Notify clients about arrival updates");
             await _arrivalsStatusHubContext.Clients.All.SendAsync("ReceiveArrivalsStatus", travels);
             await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
         }

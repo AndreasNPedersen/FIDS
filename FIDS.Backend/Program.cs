@@ -1,6 +1,7 @@
 using FIDS.Backend.Hubs;
 using FIDS.Backend.Services;
 using FIDS.Backend.Workers;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -14,6 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
+builder.Host.UseSerilog((_, lc) => lc.WriteTo.Console().WriteTo.Http("http://localhost:8080", null));
 
 var app = builder.Build();
 
@@ -25,6 +27,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapHub<ArrivalsStatusHub>("/arrivalsHub");
     endpoints.MapControllers();
 });
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
