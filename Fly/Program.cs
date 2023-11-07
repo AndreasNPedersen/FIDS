@@ -1,6 +1,8 @@
 using Fly.Persistence;
 using Fly.Services;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Serilog.Sinks.Grafana.Loki;
 
 namespace Fly
 {
@@ -9,6 +11,12 @@ namespace Fly
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            // Add services to the container.
+           var logger = new LoggerConfiguration()
+                .WriteTo.GrafanaLoki(
+                    "http://loki:3100")
+                    .CreateLogger();
+            //builder.Logging.ClearProviders();
 
             // Add services to the container.
 
@@ -18,7 +26,7 @@ namespace Fly
             builder.Services.AddSwaggerGen();
             
             builder.Services.AddDbContextPool<AirplaneDbContext>(opt =>
-                opt.UseSqlServer($"Data Source={Environment.GetEnvironmentVariable("Ip")},1433;Initial Catalog=Airplanes;User ID=sa;Password=yourStrong(!)Password;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+                opt.UseSqlServer($"Data Source={Environment.GetEnvironmentVariable("DatabaseIp")},1433;Initial Catalog=Airplanes;User ID=sa;Password=yourStrong(!)Password;Connect Timeout=30;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             
             builder.Services.AddScoped<IAirplaneService,AirplaneService>();
             builder.Services.AddCors(x => x.AddPolicy("allowall",
@@ -26,23 +34,20 @@ namespace Fly
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
                 using (var scope = app.Services.CreateScope())
                 {
                     var airplaneContext = scope.ServiceProvider.GetRequiredService<AirplaneDbContext>();
                     airplaneContext.Database.EnsureCreated();
-                    airplaneContext.Database.Migrate();
                     airplaneContext.Seed();
                 }
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
             app.UseCors("allowall");
             app.UseAuthorization();
-
-
             app.MapControllers();
 
             app.Run();

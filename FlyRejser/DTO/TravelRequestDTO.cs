@@ -6,5 +6,6 @@
         public string FromLocation { get; set; }
         public DateTime ArrivalDate { get; set; }
         public DateTime DepartureDate { get; set; }
+        public Guid FlightId { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace Fly.Models.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [MaxLength(200)]
         [MinLength(1)]
         public string Type { get; set; }

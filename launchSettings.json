@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "fly": "StartDebugging",
+        "flyplusjourneycontentenricher": "StartDebugging",
+        "flyrejser": "StartDebugging",
+        "workerfids": "StartDebugging",
+        "db": "StartWithoutDebugging"
+      }
+    }
+  }
+}
