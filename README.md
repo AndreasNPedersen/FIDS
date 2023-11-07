@@ -49,8 +49,14 @@ flowchart
 ```
 
 ```powershell
+    # Build
     docker compose -f .\compose-fids.yml build --no-cache
+    
+    # Start
     docker compose -f .\compose-fids.yml up -d
+    
+    # Stop and remove
+    docker compose -f .\compose-fids.yml down
 ```
 
 - After startup go to `http://localhost:5601` (Kibana dashboard)
