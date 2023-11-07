@@ -33,7 +33,15 @@ flowchart
         dfids -.starts.-> fb
         dfids -.starts.-> ac
         dfids -.starts.-> dc
-    end
+        dfids -.starts.-> mongodb[MongoDB - <i>Unused for now</i>]
+        dfids -.starts.-> elasticsearch
+        dfids -.starts.-> logstash
+        dfids -.starts.-> kibana
+        
+        fb --logs > :8080--> logstash
+        
+        logstash --:9200--> elasticsearch --:5601--> kibana
+end
     
     subgraph Vejle 
         
