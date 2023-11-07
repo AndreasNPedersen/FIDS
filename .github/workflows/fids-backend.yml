@@ -1,0 +1,16 @@
+name: Peters workflow
+on:
+  push:
+    branches:
+      - fids-projects
+jobs:
+  First-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "hej basse!"
+  tests:
+    name: Run unit tests for FIDS.Backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: dotnet test

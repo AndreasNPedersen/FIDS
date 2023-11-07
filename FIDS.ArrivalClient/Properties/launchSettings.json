@@ -1,0 +1,12 @@
+{
+    "profiles": {
+        "FIDS.ArrivalClient": {
+            "commandName": "Project",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "BACKEND_URL": "http://localhost:5000"
+            },
+            "dotnetRunMessages": true
+        }
+    }
+}

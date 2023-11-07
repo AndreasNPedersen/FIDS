@@ -1,0 +1,79 @@
+version: '3.9'
+
+services:
+  mongodb-fids:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongodb:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    volumes:
+      - ~/.docker-volumes/mongo/data:/data/db
+  
+  fidsbackend.api:
+    hostname: fidsbackend
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - LOGSTASH_URL=http://logstash:8080
+    image: ${DOCKER_REGISTRY-}fidsbackendapi
+    build:
+      context: .
+      dockerfile: FIDS.Backend/Dockerfile
+    ports:
+      - "5000:5000"
+  
+  fidsdepartureclient:
+    environment:
+      - BACKEND_URL=http://fidsbackend:5000
+    image: ${DOCKER_REGISTRY-}fidsdepartureclient
+    build:
+      context: .
+      dockerfile: FIDS.DepartureClient/Dockerfile
+  
+  fidsarrivalclient:
+    environment:
+      - BACKEND_URL=http://fidsbackend:5000
+    image: ${DOCKER_REGISTRY-}fidsarrivalclient
+    build:
+      context: .
+      dockerfile: FIDS.ArrivalClient/Dockerfile
+      
+  elasticsearch:
+    build:
+      context: elk/elasticsearch/
+    volumes:
+      - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+
+  logstash:
+    hostname: logstash
+    build:
+      context: elk/logstash/
+    volumes:
+      - ./elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./elk/logstash/pipeline:/usr/share/logstash/pipeline:ro
+    ports:
+      - "8080:8080"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    build:
+      context: elk/kibana/
+    volumes:
+      - ./elk/kibana/config/:/usr/share/kibana/config:ro
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
