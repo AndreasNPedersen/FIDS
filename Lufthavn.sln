@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIDS.DepartureClient", "FID
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AB51D829-7D17-441F-9A8D-A6B0423469BF}"
 	ProjectSection(SolutionItems) = preProject
-		docker-compose.yml = docker-compose.yml
+		compose-fids.yml = compose-fids.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIDS.ArrivalClient", "FIDS.ArrivalClient\FIDS.ArrivalClient.csproj", "{070E0568-7C29-4DBE-A9B2-EF6AE33236E2}"

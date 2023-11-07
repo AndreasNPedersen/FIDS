@@ -15,7 +15,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
-builder.Host.UseSerilog((_, lc) => lc.WriteTo.Console().WriteTo.Http("http://localhost:8080", null));
+Console.WriteLine($"LogStash url: {Environment.GetEnvironmentVariable("LOGSTASH_URL")}");
+builder.Host.UseSerilog((_, lc) => lc.WriteTo.Console().WriteTo.Http(Environment.GetEnvironmentVariable("LOGSTASH_URL") ?? "", null));
 
 var app = builder.Build();
 
