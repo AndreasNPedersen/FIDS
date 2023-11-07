@@ -1,0 +1,10 @@
+name: Peters workflow
+on:
+  push:
+    branches:
+      - fids-projects
+jobs:
+  First-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "hej basse!"
