@@ -12,5 +12,5 @@ jobs:
     name: Run unit tests for FIDS.Backend
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout
+      - uses: actions/checkout@v4
       - run: dotnet test
