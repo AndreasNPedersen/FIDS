@@ -44,12 +44,14 @@ namespace WorkerFIDS.Services
             using var channel = _connection.CreateModel();
             channel.QueueDeclare(queueName, true, false, false, new Dictionary<string, object> { { "x-dead-letter-exchange", "Dlx-exchange" }, { "x-dead-letter-routing-key", "FlyJourneyEnrich" }, 
                 { "x-message-ttl", 900000 } });
+
             foreach (var exchange in exchangeNames)
             {
                 channel.ExchangeDeclare(exchange, ExchangeType.Fanout);
                 channel.QueueBind(queue: queueName,
                               exchange: exchange,
                               routingKey: routingKey);
+                channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
             }
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += (model, ea) =>

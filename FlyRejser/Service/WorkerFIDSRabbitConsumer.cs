@@ -37,6 +37,7 @@ namespace FlyRejser.Service
             channel.QueueBind(queue: queueName,
                           exchange: exchangeName,
                           routingKey: routingKey);
+            channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += (model, ea) =>
             {

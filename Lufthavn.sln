@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fly", "Fly\Fly.csproj", "{C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkerFIDS", "WorkerFIDS\WorkerFIDS.csproj", "{22984119-787A-4AFC-A910-979BCD227460}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyPlusJourneyContentEnricher", "FlyPlusJourneyContentEnricher\FlyPlusJourneyContentEnricher.csproj", "{17637CA6-8638-4CE6-8027-4212E8639273}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlyPlusJourneyContentEnricher", "FlyPlusJourneyContentEnricher\FlyPlusJourneyContentEnricher.csproj", "{17637CA6-8638-4CE6-8027-4212E8639273}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{208D36E4-79F6-4AE3-8274-ADBB56F57ED0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fly.Tests", "Fly.Tests\Fly.Tests.csproj", "{28FE0D49-4C1D-4DB4-A171-74C0EBECEECF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{208D36E4-79F6-4AE3-8274-ADBB56F57ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{208D36E4-79F6-4AE3-8274-ADBB56F57ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{208D36E4-79F6-4AE3-8274-ADBB56F57ED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28FE0D49-4C1D-4DB4-A171-74C0EBECEECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28FE0D49-4C1D-4DB4-A171-74C0EBECEECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28FE0D49-4C1D-4DB4-A171-74C0EBECEECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28FE0D49-4C1D-4DB4-A171-74C0EBECEECF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,7 @@
 ﻿using Fly.Models.DTO;
 using Fly.Models.Entities;
 using Fly.Persistence;
+using Newtonsoft.Json;
 
 namespace Fly.Services
 {
@@ -40,7 +41,7 @@ namespace Fly.Services
                         MaxVolumeCargo = airplane.MaxVolumeCargo,
                         MaxWeightCargo = airplane.MaxWeightCargo
                     };
-
+                    _logger.LogInformation("made a new airplane: " +  JsonConvert.SerializeObject(airplaneEntity));
                     _db.Airplanes.Add(airplaneEntity);
                     _db.SaveChanges();
                     return true;
@@ -61,7 +62,7 @@ namespace Fly.Services
             try
             {
                 Airplane airplane = await GetAirplaneByIdAsync(id);
-
+                _logger.LogInformation("found airplane to delete: " + JsonConvert.SerializeObject(airplane));
                 if (airplane == null) throw new KeyNotFoundException();
 
                 _db.Airplanes.Remove(airplane);
@@ -95,6 +96,7 @@ namespace Fly.Services
         {
             return Task.Run(() =>
             {
+                _logger.LogError($"{nameof(GetAllAirplaneAsync)}");
                 return _db.Airplanes.ToList();
             }
             );

@@ -1,6 +1,8 @@
 using Fly.Persistence;
 using Fly.Services;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Serilog.Sinks.Grafana.Loki;
 
 namespace Fly
 {
@@ -9,6 +11,12 @@ namespace Fly
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            // Add services to the container.
+           var logger = new LoggerConfiguration()
+                .WriteTo.GrafanaLoki(
+                    "http://loki:3100")
+                    .CreateLogger();
+            //builder.Logging.ClearProviders();
 
             // Add services to the container.
 

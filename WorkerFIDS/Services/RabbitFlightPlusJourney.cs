@@ -54,6 +54,7 @@ namespace WorkerFIDS.Services
             channel.QueueBind(queue: queueName,
                           exchange: exchangeName,
                           routingKey: enrichedRoutingKey);
+            channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += (model, ea) =>
             {
