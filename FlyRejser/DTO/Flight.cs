@@ -2,7 +2,7 @@
 {
     public class Flight
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Type { get; set; }
         public string Owner { get; set; }
         public double MaxWeightCargo { get; set; }

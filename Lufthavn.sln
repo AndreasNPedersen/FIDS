@@ -3,22 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FIDS", "FIDS\FIDS.csproj", "{0D0EE5AD-11C3-49CD-8D5A-A802307990ED}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlyRejser", "FlyRejser\FlyRejser.csproj", "{E03E11EA-68B1-47D8-9E1F-55FA6E1A0124}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fly", "Fly\Fly.csproj", "{CEE16622-4BE5-45D5-AE18-274441636928}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fly", "Fly\Fly.csproj", "{CEE16622-4BE5-45D5-AE18-274441636928}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIDS.Backend", "FIDS.Backend\FIDS.Backend.csproj", "{79C4D5A0-2390-4DA6-ABF5-E4234E31BC3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkerFIDS", "WorkerFIDS\WorkerFIDS.csproj", "{22984119-787A-4AFC-A910-979BCD227460}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIDS.DepartureClient", "FIDS.DepartureClient\FIDS.DepartureClient.csproj", "{03E12877-45BE-4F26-9F4C-D33C941217C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlyPlusJourneyContentEnricher", "FlyPlusJourneyContentEnricher\FlyPlusJourneyContentEnricher.csproj", "{17637CA6-8638-4CE6-8027-4212E8639273}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AB51D829-7D17-441F-9A8D-A6B0423469BF}"
-	ProjectSection(SolutionItems) = preProject
-		compose-fids.yml = compose-fids.yml
-	EndProjectSection
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{208D36E4-79F6-4AE3-8274-ADBB56F57ED0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIDS.ArrivalClient", "FIDS.ArrivalClient\FIDS.ArrivalClient.csproj", "{070E0568-7C29-4DBE-A9B2-EF6AE33236E2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIDS.Backend.Tests", "FIDS.Backend.Tests\FIDS.Backend.Tests.csproj", "{2708EA08-3173-4DF5-8424-D4B2ED71A223}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fly.Tests", "Fly.Tests\Fly.Tests.csproj", "{28FE0D49-4C1D-4DB4-A171-74C0EBECEECF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +23,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D0EE5AD-11C3-49CD-8D5A-A802307990ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D0EE5AD-11C3-49CD-8D5A-A802307990ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D0EE5AD-11C3-49CD-8D5A-A802307990ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D0EE5AD-11C3-49CD-8D5A-A802307990ED}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E03E11EA-68B1-47D8-9E1F-55FA6E1A0124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E03E11EA-68B1-47D8-9E1F-55FA6E1A0124}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E03E11EA-68B1-47D8-9E1F-55FA6E1A0124}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -34,28 +35,22 @@ Global
 		{CEE16622-4BE5-45D5-AE18-274441636928}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEE16622-4BE5-45D5-AE18-274441636928}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEE16622-4BE5-45D5-AE18-274441636928}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F2D4748-681B-4C05-AE76-0DE8EA5518A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F2D4748-681B-4C05-AE76-0DE8EA5518A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F2D4748-681B-4C05-AE76-0DE8EA5518A4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{8F2D4748-681B-4C05-AE76-0DE8EA5518A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F2D4748-681B-4C05-AE76-0DE8EA5518A4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F2D4748-681B-4C05-AE76-0DE8EA5518A4}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{79C4D5A0-2390-4DA6-ABF5-E4234E31BC3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79C4D5A0-2390-4DA6-ABF5-E4234E31BC3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79C4D5A0-2390-4DA6-ABF5-E4234E31BC3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79C4D5A0-2390-4DA6-ABF5-E4234E31BC3F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{03E12877-45BE-4F26-9F4C-D33C941217C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03E12877-45BE-4F26-9F4C-D33C941217C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03E12877-45BE-4F26-9F4C-D33C941217C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03E12877-45BE-4F26-9F4C-D33C941217C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{070E0568-7C29-4DBE-A9B2-EF6AE33236E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{070E0568-7C29-4DBE-A9B2-EF6AE33236E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{070E0568-7C29-4DBE-A9B2-EF6AE33236E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{070E0568-7C29-4DBE-A9B2-EF6AE33236E2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2708EA08-3173-4DF5-8424-D4B2ED71A223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2708EA08-3173-4DF5-8424-D4B2ED71A223}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2708EA08-3173-4DF5-8424-D4B2ED71A223}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2708EA08-3173-4DF5-8424-D4B2ED71A223}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22984119-787A-4AFC-A910-979BCD227460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22984119-787A-4AFC-A910-979BCD227460}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22984119-787A-4AFC-A910-979BCD227460}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22984119-787A-4AFC-A910-979BCD227460}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17637CA6-8638-4CE6-8027-4212E8639273}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17637CA6-8638-4CE6-8027-4212E8639273}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17637CA6-8638-4CE6-8027-4212E8639273}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17637CA6-8638-4CE6-8027-4212E8639273}.Release|Any CPU.Build.0 = Release|Any CPU
+		{208D36E4-79F6-4AE3-8274-ADBB56F57ED0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{208D36E4-79F6-4AE3-8274-ADBB56F57ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{208D36E4-79F6-4AE3-8274-ADBB56F57ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{208D36E4-79F6-4AE3-8274-ADBB56F57ED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28FE0D49-4C1D-4DB4-A171-74C0EBECEECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28FE0D49-4C1D-4DB4-A171-74C0EBECEECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28FE0D49-4C1D-4DB4-A171-74C0EBECEECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28FE0D49-4C1D-4DB4-A171-74C0EBECEECF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
