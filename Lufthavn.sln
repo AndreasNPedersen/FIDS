@@ -15,7 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlyPlusJourneyContentEnrich
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{208D36E4-79F6-4AE3-8274-ADBB56F57ED0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fly.Tests", "Fly.Tests\Fly.Tests.csproj", "{28FE0D49-4C1D-4DB4-A171-74C0EBECEECF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fly.Tests", "Fly.Tests\Fly.Tests.csproj", "{28FE0D49-4C1D-4DB4-A171-74C0EBECEECF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{17637CA6-8638-4CE6-8027-4212E8639273} = {17637CA6-8638-4CE6-8027-4212E8639273}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

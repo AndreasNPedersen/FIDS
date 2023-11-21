@@ -1,6 +1,7 @@
 ﻿using Fly.Models.DTO;
 using Fly.Models.Entities;
 using Fly.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace Fly.Services

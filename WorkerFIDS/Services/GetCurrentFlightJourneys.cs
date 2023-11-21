@@ -45,7 +45,7 @@ namespace WorkerFIDS.Services
                 return;
             }
             var allCurrentArrivalsInCache = JsonConvert.DeserializeObject<List<FlightFIDSArrivalDTO>>(content);
-            server.SendAsync(client, JsonConvert.SerializeObject(allCurrentArrivalsInCache.OrderBy(x => x.ArrivalDate)));
+            server.SendAsync(client, JsonConvert.SerializeObject(allCurrentArrivalsInCache.Where(x => x.ArrivalDate.Day == DateTime.Now.Day).OrderBy(x => x.ArrivalDate)));
         }
 
         public static void GetDepartures(Guid client, WatsonWsServer server, IDatabase database)
@@ -57,7 +57,7 @@ namespace WorkerFIDS.Services
             }
 
             var allCurrentdeparturessInCache = JsonConvert.DeserializeObject<List<FlightFIDSDepartDTO>>(content);
-            server.SendAsync(client, JsonConvert.SerializeObject(allCurrentdeparturessInCache.OrderBy(x => x.DepartureTime)));
+            server.SendAsync(client, JsonConvert.SerializeObject(allCurrentdeparturessInCache.Where(x=>x.DepartureTime.Day == DateTime.Now.Day).OrderBy(x => x.DepartureTime)));
         }
 
 

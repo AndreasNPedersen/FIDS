@@ -1,4 +1,5 @@
-﻿using FlyPlusJourneyContentEnricher.Models;
+﻿using FlyPlusJourneyContentEnricher.Helpers;
+using FlyPlusJourneyContentEnricher.Models;
 using FlyPlusJourneyContentEnricher.Models.DTO;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -12,17 +13,20 @@ namespace FlyPlusJourneyContentEnricher.Services
 {
     public static class EnrichFJBooking
     {
-        public static void SendFJMessage(Flight flight, Airplane plane, IModel channel)
+        public static void SendFJMessage(Flight flight, string airplaneURL, IModel channel)
         {
             string exchangeName = "FlightJourney";
             string enrichedRoutingKey = "BookingPlaneAndFlight"; //to Boarding
+
+            Airplane plane = HttpAirplane.GetAirplane(airplaneURL, flight.FlightId);
+
             FlightBookingDTO enrichedData = new FlightBookingDTO
             {
                 Arrival = flight.ArrivalDate.ToString(),
                 Departure = flight.DepartureDate.ToString(),
                 FlightOrigin = flight.FromLocation,
                 FlightDestination = flight.ToLocation,
-                FlightId = flight.FlightId.ToString(),
+                FlightId = flight.Id.ToString(),
                 BaggageWeightAvailableTotal = Convert.ToInt32(plane.MaxWeightCargo),
                 PassengersAvailableTotal = plane.MaxSeats,
                 planeId = plane.Id.ToString(),

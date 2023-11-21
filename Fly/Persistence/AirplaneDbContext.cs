@@ -6,13 +6,16 @@ namespace Fly.Persistence
 {
     public class AirplaneDbContext : DbContext
     {
-        public DbSet<Airplane> Airplanes { get; set; }
+        public virtual DbSet<Airplane> Airplanes { get; set; }
 
         public AirplaneDbContext(DbContextOptions<AirplaneDbContext> options) : base(options)
         {
 
         }
+        public AirplaneDbContext()
+        {
 
-        
+        }
+
     }
 }

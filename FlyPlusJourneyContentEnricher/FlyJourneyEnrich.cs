@@ -57,19 +57,17 @@ namespace FlyPlusJourneyContentEnricher
                 try
                 {
                     Flight flight = JsonConvert.DeserializeObject<Flight>(message);
-                    var response = new HttpClient().GetAsync(_airplaneURL + flight.FlightId).Result;
-                    var responseStringify = response.Content.ReadAsStringAsync().Result;
-                    Airplane plane = JsonConvert.DeserializeObject<Airplane>(responseStringify);
+                    
                     _logger.LogInformation(message);
                     string key = ea.RoutingKey;
                     switch (key) //should be created as a strategy pattern
                     {
                         case string a when a.Contains("Departure"):
-                            EnrichFJDepart.SendFJDepartMessage(flight, plane, channel);
+                            EnrichFJDepart.SendFJDepartMessage(flight, _airplaneURL, channel);
                             break;
                         case string b when b.Contains("Arrival"):
-                            EnrichFJBooking.SendFJMessage(flight, plane, channel);
-                            EnrichFJArrival.SendFJArrivalMessage(flight, plane, channel);
+                            EnrichFJBooking.SendFJMessage(flight, _airplaneURL, channel);
+                            EnrichFJArrival.SendFJArrivalMessage(flight, _airplaneURL, channel);
                             break;
                     }
                 } catch(Exception ex) { _logger.LogError(ex.Message); }
