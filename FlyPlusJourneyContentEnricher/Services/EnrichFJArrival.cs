@@ -1,4 +1,5 @@
-﻿using FlyPlusJourneyContentEnricher.Models;
+﻿using FlyPlusJourneyContentEnricher.Helpers;
+using FlyPlusJourneyContentEnricher.Models;
 using FlyPlusJourneyContentEnricher.Models.DTO;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -12,10 +13,14 @@ namespace FlyPlusJourneyContentEnricher.Services
 {
     public static class EnrichFJArrival
     {
-        public static void SendFJArrivalMessage(Flight flight, Airplane plane, IModel channel)
+        public static void SendFJArrivalMessage(Flight flight, string airplaneURL, IModel channel)
         {
             string exchangeName = "FlightJourney";
             string enrichedRoutingKey = "AirplanePlusJourney.Arrival"; //to FIDS worker
+
+
+            Airplane plane = HttpAirplane.GetAirplane(airplaneURL, flight.FlightId);
+
             FlightFIDSArrivalDTO enrichedData = new FlightFIDSArrivalDTO
             {
                 AirplaneOwner = plane.Owner,

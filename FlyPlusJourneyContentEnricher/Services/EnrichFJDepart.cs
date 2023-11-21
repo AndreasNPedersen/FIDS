@@ -1,4 +1,5 @@
-﻿using FlyPlusJourneyContentEnricher.Models;
+﻿using FlyPlusJourneyContentEnricher.Helpers;
+using FlyPlusJourneyContentEnricher.Models;
 using FlyPlusJourneyContentEnricher.Models.DTO;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -12,10 +13,13 @@ namespace FlyPlusJourneyContentEnricher.Services
 {
     public static class EnrichFJDepart
     {
-        public static void SendFJDepartMessage(Flight flight, Airplane plane, IModel channel)
+        public static void SendFJDepartMessage(Flight flight, string airplaneURL, IModel channel)
         {
             string exchangeName = "FlightJourney";
             string enrichedRoutingKey = "AirplanePlusJourney.Departure"; //to FIDS worker
+
+            Airplane plane = HttpAirplane.GetAirplane(airplaneURL, flight.FlightId);
+
             FlightFIDSDepartDTO enrichedData = new FlightFIDSDepartDTO
             {
                 AirplaneOwner = plane.Owner,

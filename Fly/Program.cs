@@ -12,10 +12,10 @@ namespace Fly
         {
             var builder = WebApplication.CreateBuilder(args);
             // Add services to the container.
-           var logger = new LoggerConfiguration()
-                .WriteTo.GrafanaLoki(
-                    "http://loki:3100")
-                    .CreateLogger();
+           //var logger = new LoggerConfiguration()
+           //     .WriteTo.GrafanaLoki(
+           //         "http://loki:3100")
+           //         .CreateLogger();
             //builder.Logging.ClearProviders();
 
             // Add services to the container.
