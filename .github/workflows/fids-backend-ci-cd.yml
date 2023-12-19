@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Deploy FIDS.Backend
 
 on:
   push:
@@ -7,18 +7,33 @@ on:
   pull_request:
     branches:
       - Demo-Blazor
-
+    paths:
+      - Lufthavn/FIDS.Backend/**
+      - Lufthavn/FIDS.Backend.Tests/**
+      - .github/workflows/fids-backend-ci-cd.yml
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 7.0.x
 
+    - name: Restore dependencies
+      run: |
+        dotnet nuget list source
+        dotnet restore
+        
     - name: Build
-      run: echo "Bygger applikationenttt..."
+      run: |
+          dotnet build --configuration Release --no-restore
 
     - name: Test
-      run: echo "Kører tests..."
+      run: dotnet test --no-restore
 
   generate-version:
     needs: build-and-test
