@@ -1,9 +1,7 @@
 name: Deploy FIDS.ArrivalClient
 
-on:
-  push:
-    branches:
-      - Demo-Blazor
+on: 
+
   pull_request:
     branches:
       - Demo-Blazor

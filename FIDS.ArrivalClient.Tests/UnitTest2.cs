@@ -1,7 +1,7 @@
 namespace FIDS.ArrivalClient.Tests;
 using FluentAssertions;
 using NSubstitute;
-public class UnitTest1
+public class UnitTest2
 {
     [Fact]
     public void TestArrivalsController_GetAllArrivals()
