@@ -1,0 +1,43 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - Demo-Blazor
+  pull_request:
+    branches:
+      - Demo-Blazor
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build
+      run: echo "Bygger applikationenttt..."
+
+    - name: Test
+      run: echo "Kører tests..."
+
+  generate-version:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Generate Version
+      run: echo "Version $(date +'%Y.%m.%d.%H.%M.%S')" > version.txt
+      # Dette trin genererer en version baseret på den aktuelle dato og tid
+
+    - name: Print Version
+      run: cat version.txt
+
+  deploy-to-dev:
+    needs: generate-version
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to Development Environment
+      run: echo "Simulerer deployment til udviklingsmiljøet..."
+
+# Her kan vi tilføje yderligere steps efter behov
