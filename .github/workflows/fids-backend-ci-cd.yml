@@ -1,7 +1,6 @@
 name: Deploy FIDS.Backend
 
-on:
-  
+on: 
   pull_request:
     branches:
       - Demo-Blazor

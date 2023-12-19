@@ -34,7 +34,7 @@ while (!cts.IsCancellationRequested)
     }
     catch (HttpRequestException ex)
     {
-        Console.WriteLine("CRITICAL: No connection available.");
+        Console.WriteLine("CRITICAL: No connection available...");
         continue;
     }
     catch (TaskCanceledException ex)
