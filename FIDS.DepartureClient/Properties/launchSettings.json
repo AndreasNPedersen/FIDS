@@ -4,7 +4,7 @@
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "BACKEND_URL": "http://localhost:5000"
+        "BACKEND_URL": "http://localhost:5001"
       },
       "dotnetRunMessages": true
     }

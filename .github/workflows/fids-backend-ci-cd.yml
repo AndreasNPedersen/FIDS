@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Build
-      run: echo "Bygger applikationen..."
+      run: echo "Bygger applikationenttt..."
 
     - name: Test
       run: echo "Kører tests..."
