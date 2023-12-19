@@ -1,0 +1,58 @@
+name: Deploy FIDS.ArrivalClient
+
+on:
+  push:
+    branches:
+      - Demo-Blazor
+  pull_request:
+    branches:
+      - Demo-Blazor
+    paths:
+      - Lufthavn/FIDS.ArrivalClient/**
+      - Lufthavn/FIDS.ArrivalClient.Tests/**
+      - .github/workflows/fids-arrival-client-ci-cd.yml
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 7.0.x
+
+    - name: Restore dependencies
+      run: |
+        dotnet nuget list source
+        dotnet restore
+        
+    - name: Build
+      run: |
+          dotnet build --configuration Release --no-restore
+
+    - name: Test
+      run: dotnet test --no-restore
+
+  generate-version:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Generate Version
+      run: echo "Version $(date +'%Y.%m.%d.%H.%M.%S')" > version.txt
+      # Dette trin genererer en version baseret på den aktuelle dato og tid
+
+    - name: Print Version
+      run: cat version.txt
+
+  deploy-to-dev:
+    needs: generate-version
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to Development Environment
+      run: echo "Simulerer deployment til udviklingsmiljøet..."
+
+# Her kan vi tilføje yderligere steps efter behov
