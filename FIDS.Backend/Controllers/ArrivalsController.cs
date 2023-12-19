@@ -19,7 +19,7 @@ namespace FIDS.Backend.Controllers
         [HttpGet(Name = "GetAllArrivals")]
         public async Task<IEnumerable<TravelResponseDTO>> GetArrivals()
         {
-            _logger.LogInformation("GetAllArrivals-v2");
+            _logger.LogInformation("GetAllArrivals-v3");
             List<TravelResponseDTO> list = new List<TravelResponseDTO>();
             list.Add(new TravelResponseDTO(1, "Billund", "Berlin", DateTime.Now.AddHours(2), DateTime.Now, 7));
             return list;

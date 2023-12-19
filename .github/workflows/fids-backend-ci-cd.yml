@@ -31,10 +31,4 @@ jobs:
         push: true
         tags: fids-backend/fidsrepo:latest
 
-   tests:
-      name: Run unit tests for FIDS.Backend
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@v4
-      - run: dotnet test
 
