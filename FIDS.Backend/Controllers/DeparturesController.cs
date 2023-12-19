@@ -19,9 +19,12 @@ public class DeparturesController : ControllerBase
     [HttpGet(Name = "GetAllDepartures")]
     public async Task<IEnumerable<TravelResponseDTO>> GetDepartures()
     {
-        _logger.LogInformation("GetAllDepartures");
+        _logger.LogInformation("Klient henter Ankomst iniformationer....");
         List<TravelResponseDTO> list = new List<TravelResponseDTO>();
-        list.Add(new TravelResponseDTO(1, "Madridd", "Billund", DateTime.Now.AddHours(2), DateTime.Now, 7));
+        var item = new TravelResponseDTO(1, "Billund", "Berlin", DateTime.Now.AddHours(2), DateTime.Now, 7);
+        new TravelResponseDTO(1, "Tuzla", "Billund", DateTime.Now.AddHours(2), DateTime.Now, 7);
+        _logger.LogInformation("Klient har hentet informationer om afgang:", item.ToString());
+        list.Add(item);
         return list;
     }
 }

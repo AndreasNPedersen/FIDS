@@ -19,7 +19,11 @@ namespace FIDS.Backend.Domain
             FlightId = flightId;
         }
 
-
+        public override string ToString()
+        {
+            return $"Id: {Id}, ToLocation: {ToLocation}, FromLocation: {FromLocation}" ;
+            // Tilføj alle nødvendige egenskaber
+        }
     }
 }
 

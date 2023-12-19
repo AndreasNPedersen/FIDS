@@ -32,13 +32,15 @@ public sealed class ArrivalsWorker : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        int id = 0;
+
         while (!stoppingToken.IsCancellationRequested)
         {
             string toLocation = RandomString(10);
             string fromLocation = RandomString(10);
-            int id = 1;
-            travels.Add(new TravelResponseDTO(id++, toLocation, fromLocation, DateTime.Now.AddHours(2), DateTime.Now, 19));
-
+           
+            travels.Add(new TravelResponseDTO(id, toLocation, fromLocation, DateTime.Now.AddHours(2), DateTime.Now, 19));
+            id++;
             //Fetch the next 20 arrivals from the Travel api
             //Save to database TODO:
             //Get arrival from database
