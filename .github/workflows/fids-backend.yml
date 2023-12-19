@@ -1,8 +1,8 @@
-name: Peters workflow
+name: Elvir Tester Blazor
 on:
   push:
     branches:
-      - fids-projects
+      - Demo-Blazor
 jobs:
   First-job:
     runs-on: ubuntu-latest
