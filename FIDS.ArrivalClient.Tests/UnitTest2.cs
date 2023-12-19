@@ -18,9 +18,9 @@ public class UnitTest2
 }
 public  class FlyTest
 {
-    public  int ValidateFliteId(int id)
+    public int ValidateFliteId(int id)
     {
 
-        return 2;
+        return 1;
     }
 }
